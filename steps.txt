@@ -1,0 +1,17 @@
+Step 1: write the "click" event handlers for each button. Think about which functions they will call. For instance, when you click the "previous song" button, you'll probably want to call Jukebox.prevSong().
+
+Step 2: implement Jukebox.addSong(). This takes a 'Song' object as parameter, and adds it to the list of songs known to the jukebox. It's called from the addSong() (NOT Jukebox.addSong()!!! They are different functions!) in line 61.
+
+Step 3: write code that will make the first song play when the user presses the "Play" button. To do this, implement the 'play' method in the Song class.
+
+Step 4: when a song is already playing, pressing the button again should make it pause. That is, you should be able to pause/resume the song using the button. It still should only know how to play one song (the first one), don't worry about playing other songs! Make sure to change the text on the button to reflect the action it will do (i.e. the button should read 'Play' or 'Resume' if clicking the button would play/resume the song, and 'Pause' if clicking the button would pause the currently playing song)!
+
+Step 5: now write the code to create the HTML. You will want to write this in the 'renderHTML' method of Song. In jQuery, you can create new elements via writing $("<div></div>") for example, if you want to create a new <div>. Some jQuery methods that are useful:
+ - addClass() / removeClass() for adding and removing a CSS class from the element
+ - html() to get or set the HTML contents of the element
+ - append() for adding new elements or text as a child
+ - appendTo() to append the element as a child of the given element
+
+Read the documentation on https://api.jquery.com if you're not sure how you can use these functions!
+
+Step 6: now implement the 'next song' behaviour: when the user presses the button, the currently playing song (if any) should stop playing, and the next song in the list should be active. The next song can start playing immediately, if you want; or it can also start playing only when you press the 'Play' button again.

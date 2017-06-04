@@ -1,0 +1,7 @@
+#song-queue li.playing {
+  font-weight: bold;
+}
+
+.song-title, .song-artist {
+  font-style: italic;
+}

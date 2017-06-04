@@ -1,0 +1,19 @@
+You're creating a jukebox application: a music player. We will be using jQuery.
+
+For the first version, it shall be able to do the following:
+ - List the available songs to play (in the 'songs' directory). Generate the HTML for this with JavaScript!
+ - Move to the previous or next song.
+ - Play or pause the current song.
+ - The song that's currently playing should have the "playing" CSS class added to its <li> element.
+
+A starting kit is included, which includes all the HTML and CSS code you need (but you can, of course, modify any of these if you feel like it), as well as a stub JavaScript file.
+
+In the JavaScript stub, you will find the following:
+ - a Jukebox object, this will contain all behaviour relating to your jukebox
+ - a Song class, which represents the individual songs that can be played
+ - code that will execute once the document has finished loading: register the event handlers here, as well as the (initial) set of songs
+
+You will be using the Audio type that browsers provide in order to play music. An overview of what the Audio class can do can be found here: https://www.w3schools.com/tags/ref_av_dom.asp
+You will only need the following functions: play() and pause().
+
+In later versions, we will (maybe) add more advanced features!

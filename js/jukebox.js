@@ -54,23 +54,24 @@ const Jukebox = {
 
   previousSong() {
     // play array position - 1
-    if (Jukebox.currentSong === null) {
+    if (Jukebox.currentSong === null || Jukebox.currentSong === 0) {
+      console.log("No more previous tracks.")
       return 
     }
 
-    // if (Jukebox.currentSong !== null || Jukebox.currentSong >= Jukebox.songs.length) {
-    //   Jukebox.songs[Jukebox.currentSong].stop();
-    //   Jukebox.currentSong = Jukebox.currentSong + 1;
-    //   console.log(Jukebox.currentSong);
-    //   Jukebox.songs[Jukebox.currentSong].play();
-    //   Jukebox.isPlaying = true;
-    // }
+    if (Jukebox.currentSong !== null) {
+      Jukebox.songs[Jukebox.currentSong].stop();
+      Jukebox.currentSong = Jukebox.currentSong - 1;
+      console.log(Jukebox.currentSong);
+      Jukebox.songs[Jukebox.currentSong].play();
+      Jukebox.isPlaying = true;
+    }
   },
 
   nextSong() {
     // play array position + 1
     if (Jukebox.currentSong === null || Jukebox.currentSong === Jukebox.songs.length - 1) {
-      console.log("no more tracks")
+      console.log("no more tracks available.")
       return 
     }
 
@@ -94,7 +95,6 @@ const Jukebox = {
 function addSong(filePath, metaData) {
   let song = new Song(filePath, metaData);
   Jukebox.addSong(song);
-
   song.renderHTML().appendTo($("#song-queue"));
 }
 
@@ -124,14 +124,12 @@ $(document).ready(function() {
 
   $("#btnPrev").on("click", 
     function(event) {
-      console.log("prev");
       Jukebox.previousSong();
     }
   );
 
   $("#btnNext").on("click", 
     function(event) {
-      console.log("next");
       Jukebox.nextSong();
     }
   );

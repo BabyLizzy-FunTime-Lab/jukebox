@@ -33,6 +33,7 @@ class Song {
   stop() {
     this.audio.pause();
     this.audio.currentTime = 0;
+    this.$element.removeClass("playing");
   }
 }
 
@@ -53,14 +54,37 @@ const Jukebox = {
 
   previousSong() {
     // play array position - 1
+    if (Jukebox.currentSong === null) {
+      return 
+    }
+
+    // if (Jukebox.currentSong !== null || Jukebox.currentSong >= Jukebox.songs.length) {
+    //   Jukebox.songs[Jukebox.currentSong].stop();
+    //   Jukebox.currentSong = Jukebox.currentSong + 1;
+    //   console.log(Jukebox.currentSong);
+    //   Jukebox.songs[Jukebox.currentSong].play();
+    //   Jukebox.isPlaying = true;
+    // }
   },
 
   nextSong() {
     // play array position + 1
+    if (Jukebox.currentSong === null || Jukebox.currentSong === Jukebox.songs.length - 1) {
+      console.log("no more tracks")
+      return 
+    }
+
+    if (Jukebox.currentSong < Jukebox.songs.length) {
+      Jukebox.songs[Jukebox.currentSong].stop();
+      Jukebox.currentSong = Jukebox.currentSong + 1;
+      console.log(Jukebox.currentSong);
+      Jukebox.songs[Jukebox.currentSong].play();
+      Jukebox.isPlaying = true;
+    }
   },
 
   togglePause() {
-    Jukebox.currentSong.pause();
+    Jukebox.songs[Jukebox.currentSong].pause();
     Jukebox.isPlaying = false;
 
   },
@@ -81,14 +105,14 @@ $(document).ready(function() {
       
       if (Jukebox.currentSong === null) {
         Jukebox.songs[0].play();
-        Jukebox.currentSong = Jukebox.songs[0];
+        Jukebox.currentSong = 0;
         Jukebox.isPlaying = true;
         return
       }
 
       if (Jukebox.isPlaying === false) {
         Jukebox.isPlaying = true;
-        Jukebox.currentSong.play();
+        Jukebox.songs[Jukebox.currentSong].play();
         return
       }
 
@@ -127,5 +151,4 @@ $(document).ready(function() {
     artist: "Tycho",
   });
 
-  console.log(Jukebox.songs)
 });

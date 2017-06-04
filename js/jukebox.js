@@ -3,26 +3,31 @@ class Song {
 
   constructor(filePath, metaData) {
     this.audio = new Audio(filePath);
+    this.$element = null;
+    this.artist = metaData.artist;
+    this.title = metaData.title;
     // ...
   }
 
   renderHTML() {
-    /*
-<li>
-  <span class="song-title">Example</span> from <span class="song-artist">Example</span>
-</li>
-    */
+    let $songElement = $("<li></li>");
+    let $titleSpan = $("<span></span>");
+    let $artistSpan = $("<span></span>");
+    $titleSpan.addClass("song-title").text(this.title).appendTo($songElement).after(" from ");
+    $artistSpan.addClass("song-artist").text(this.artist).appendTo($songElement);
 
-    this.$element = /* ... */null;
+    this.$element = $songElement;
     return this.$element;
   }
 
   play() {
-    // ...
+    this.audio.play();
+    this.$element.addClass("playing");
   }
 
   pause() {
-    // ...
+    this.audio.pause();
+    this.$element.removeClass("playing");
   }
 
   stop() {
@@ -42,22 +47,26 @@ const Jukebox = {
   currentSong: null,
 
   addSong(song) {
-    // ...
+    // push song object into songs array
+    Jukebox.songs.push(song);
   },
 
   previousSong() {
-    // ...
+    // play array position - 1
   },
 
   nextSong() {
-    // ...
+    // play array position + 1
   },
 
   togglePause() {
-    // ...
+    Jukebox.currentSong.pause();
+    Jukebox.isPlaying = false;
+
   },
 };
 
+// This creates a new song object with the new track and renders it.
 function addSong(filePath, metaData) {
   let song = new Song(filePath, metaData);
   Jukebox.addSong(song);
@@ -67,6 +76,41 @@ function addSong(filePath, metaData) {
 
 $(document).ready(function() {
   // TODO: hook up the buttons, etc.
+  $("#btnPlayPause").on("click", 
+    function(event) {
+      
+      if (Jukebox.currentSong === null) {
+        Jukebox.songs[0].play();
+        Jukebox.currentSong = Jukebox.songs[0];
+        Jukebox.isPlaying = true;
+        return
+      }
+
+      if (Jukebox.isPlaying === false) {
+        Jukebox.isPlaying = true;
+        Jukebox.currentSong.play();
+        return
+      }
+
+      if (Jukebox.isPlaying === true) {
+        Jukebox.togglePause();
+      }
+    }
+  );
+
+  $("#btnPrev").on("click", 
+    function(event) {
+      console.log("prev");
+      Jukebox.previousSong();
+    }
+  );
+
+  $("#btnNext").on("click", 
+    function(event) {
+      console.log("next");
+      Jukebox.nextSong();
+    }
+  );
 
   addSong("songs/Zimbabwe.mp3", {
     title: "Can I Get Wit' Ya in Zimbabwe",
@@ -82,4 +126,6 @@ $(document).ready(function() {
     title: "Coastal Brake",
     artist: "Tycho",
   });
+
+  console.log(Jukebox.songs)
 });

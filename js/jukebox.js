@@ -83,7 +83,7 @@ const Jukebox = {
   togglePause() {
     if (Jukebox.isPlaying === true ) {
       $("#btnPlayPause").text("Pause");
-    } else if (Jukebox.isPlaying === false ) {
+    } else {
       $("#btnPlayPause").text("Play");
     }
   },

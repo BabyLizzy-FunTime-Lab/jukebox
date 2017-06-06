@@ -1,12 +1,10 @@
 class Song {
-  // TODO
 
   constructor(filePath, metaData) {
     this.audio = new Audio(filePath);
     this.$element = null;
     this.artist = metaData.artist;
     this.title = metaData.title;
-    // ...
   }
 
   renderHTML() {
@@ -62,7 +60,6 @@ const Jukebox = {
     if (Jukebox.currentSong !== null) {
       Jukebox.songs[Jukebox.currentSong].stop();
       Jukebox.currentSong = Jukebox.currentSong - 1;
-      console.log(Jukebox.currentSong);
       Jukebox.songs[Jukebox.currentSong].play();
       Jukebox.isPlaying = true;
     }
@@ -71,14 +68,13 @@ const Jukebox = {
   nextSong() {
     // play array position + 1
     if (Jukebox.currentSong === null || Jukebox.currentSong === Jukebox.songs.length - 1) {
-      console.log("no more tracks available.")
+      console.log("No more tracks available.")
       return 
     }
 
     if (Jukebox.currentSong < Jukebox.songs.length) {
       Jukebox.songs[Jukebox.currentSong].stop();
       Jukebox.currentSong = Jukebox.currentSong + 1;
-      console.log(Jukebox.currentSong);
       Jukebox.songs[Jukebox.currentSong].play();
       Jukebox.isPlaying = true;
     }
@@ -87,7 +83,7 @@ const Jukebox = {
   togglePause() {
     Jukebox.songs[Jukebox.currentSong].pause();
     Jukebox.isPlaying = false;
-
+    // $("#btnPlayPause").toggleText("Pause");
   },
 };
 

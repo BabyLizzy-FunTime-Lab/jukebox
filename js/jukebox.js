@@ -81,9 +81,11 @@ const Jukebox = {
   },
 
   togglePause() {
-    Jukebox.songs[Jukebox.currentSong].pause();
-    Jukebox.isPlaying = false;
-    // $("#btnPlayPause").toggleText("Pause");
+    if (Jukebox.isPlaying === true ) {
+      $("#btnPlayPause").text("Pause");
+    } else if (Jukebox.isPlaying === false ) {
+      $("#btnPlayPause").text("Play");
+    }
   },
 };
 
@@ -103,30 +105,37 @@ $(document).ready(function() {
         Jukebox.songs[0].play();
         Jukebox.currentSong = 0;
         Jukebox.isPlaying = true;
+        Jukebox.togglePause();
         return
       }
 
       if (Jukebox.isPlaying === false) {
         Jukebox.isPlaying = true;
         Jukebox.songs[Jukebox.currentSong].play();
+        Jukebox.togglePause();
         return
       }
 
       if (Jukebox.isPlaying === true) {
+        Jukebox.songs[Jukebox.currentSong].pause();
+        Jukebox.isPlaying = false;
         Jukebox.togglePause();
       }
+
     }
   );
 
   $("#btnPrev").on("click", 
     function(event) {
       Jukebox.previousSong();
+      Jukebox.togglePause();
     }
   );
 
   $("#btnNext").on("click", 
     function(event) {
       Jukebox.nextSong();
+      Jukebox.togglePause();      
     }
   );
 
